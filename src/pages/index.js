@@ -2,12 +2,12 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
-import Loader from "../../components/loader";
-import Navbar from "./../../components/navbar";
-import { downloadImage } from "../../components/filesaver";
+import Loader from "../components/loader";
+import Navbar from "../components/navbar";
+import { downloadImage } from "../components/filesaver";
 
 import dynamic from "next/dynamic";
-const DynmaicComp = dynamic(() => import("../../components/lineGraph"),{
+const DynmaicComp = dynamic(() => import("../components/lineGraph"),{
   ssr:false,
   loading:()=><p>loading</p>
 })

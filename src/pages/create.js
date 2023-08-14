@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import FormField from "../../components/FormField";
+import FormField from "../components/FormField";
 import axios from "axios";
 import Image from "next/image";
-import Navbar from "./../../components/navbar";
+import Navbar from "../components/navbar";
 export default function CreatePage() {
   const [formData, setFormData] = useState({
     client_id: "",

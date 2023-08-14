@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import User from "../../../components/models/userModel";
-import connectDB from "../../../components/mongodb/connect";
+import User from "../../components/models/userModel";
+import connectDB from "../../components/mongodb/connect";
 export const config = {
   api: { responseLimit: "20mb" },
   bodyParser: { sizeLimit: "20mb" },

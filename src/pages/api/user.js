@@ -1,6 +1,6 @@
-import User from "../../../components/models/userModel";
+import User from "../../components/models/userModel";
 import * as dotenv from "dotenv";
-import connectDB from "../../../components/mongodb/connect";
+import connectDB from "../../components/mongodb/connect";
 dotenv.config();
 connectDB();
 export const config = {
