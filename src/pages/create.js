@@ -3,6 +3,7 @@ import FormField from "../components/FormField";
 import axios from "axios";
 import Image from "next/image";
 import Navbar from "../components/navbar";
+import Link from 'next/link';
 export default function CreatePage() {
   const [formData, setFormData] = useState({
     client_id: "",
@@ -15,7 +16,7 @@ export default function CreatePage() {
 
   const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
- 
+
   const convertToBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
@@ -42,7 +43,7 @@ export default function CreatePage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("form data",formData);
+    console.log("form data", formData);
     try {
       setLoading(true)
       const response = await axios.post("/api/user", formData, {
@@ -55,7 +56,7 @@ export default function CreatePage() {
     } catch (error) {
       console.log({ error });
       alert('something went wrong', error)
-    }finally{
+    } finally {
       setLoading(false)
     }
   };
@@ -123,13 +124,20 @@ export default function CreatePage() {
             {preview && (
               <Image src={preview} width={600} height={600} alt="Preview" />
             )}
-            <button
-              type="submit"
-              className="mt-3 text-white bg-[#6469ff] font-medium  rounded-md text-sm sm:w-24 xs:w-full px-5 py-2.5 text-center"
-            >
-              {loading ? "Submitting..." : "SUBMIT"}
-          
-            </button>
+            <div className="flex flex-col sm:flex-row">
+              <button
+                type="submit"
+                className="w-full sm:w-auto mb-2 sm:mb-0 sm:mr-2 bg-[#6469ff]  hover:bg-blue-900 text-white font-bold py-2 px-4 rounded"
+              >
+                {loading ? "Submitting..." : "SUBMIT"}
+
+              </button>
+              <Link href='/'><button
+                type="submit"
+                className="w-full sm:w-auto bg-[#6469ff]  hover:bg-blue-900 text-white font-bold py-2 px-4 rounded"
+              >
+                BACK
+              </button></Link></div>
           </div>
         </form>
       </section>

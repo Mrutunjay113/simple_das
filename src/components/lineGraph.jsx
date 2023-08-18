@@ -1,10 +1,10 @@
 import React from "react";
 import Plot from 'react-plotly.js';
 
-const LineChart=({ data }) =>{
+const LineChart=( {data} ) =>{
   const xValues = data.map(item => item.date + '/' + item.time); 
   const yValues = data.map(item => item.client_id); 
-  var config = { responsive: true }
+  var config = { responsive: true, scrollZoom: true }
   return (
     <Plot
       data={[
@@ -18,13 +18,14 @@ const LineChart=({ data }) =>{
       ]}
       
       layout={{
-        width:600,
-        height:600,
+        autosize:true,
         title: 'Line Chart',
         xaxis: { title: 'Date and Time' },
         yaxis: { title: 'Client Id' },
       }}
+      className="w-full"
     config={config}
+
     />
   );
 }

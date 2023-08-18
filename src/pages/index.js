@@ -1,23 +1,19 @@
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
 import axios from "axios";
 import Loader from "../components/loader";
 import Navbar from "../components/navbar";
+import datajson from '../components/data.json'
 import { downloadImage } from "../components/filesaver";
-
-import dynamic from "next/dynamic";
-const DynmaicComp = dynamic(() => import("../components/lineGraph"),{
-  ssr:false,
-  loading:()=><p>loading</p>
-})
+import { useUserContext } from "@/components/datacontext";
 
 export default function Home() {
-
+  // const [data, setData] = useState(datajson);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [show, setshow] = useState(false)
   const [id, setId] = useState("")
+  const {userData, setUserData} = useUserContext()
+
   const [selectedImage, setSelectedImage] = useState("");
   const openImageModal = (imageUrl, id) => {
     setSelectedImage(imageUrl);
@@ -35,6 +31,8 @@ const headings = [
   const closeImageModal = () => {
     setSelectedImage(null);
   };
+  //  setUserData(data)
+  //  console.log( typeof userData);
 /*  fetch data from getdata api */
   useEffect(() => {
     fetchData();
@@ -44,7 +42,9 @@ const headings = [
       setLoading(true);
       const response = await axios.get("/api/getdata");
       setData(response?.data);
-      console.log(response.data);
+      const datacontext = response.data
+      setUserData(datacontext)
+
      
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -52,22 +52,22 @@ const headings = [
       setLoading(false);
     }
   };
+  
 
   return (
     <>
       <section>
         <Navbar />
-        <div className="tabel-section mx-5">
+        <div className="tabel-section mx-5 my-5">
           <h1 className="my-5 font-extrabold text-[#222328] text-[32px]">
             Data Table
           </h1>
           {/* show loading before component render */}
           {loading ? <div className="flex justify-center items-center">
             <Loader />
-          </div> : (<table className="min-w-full table-auto border-2">
+          </div> : (<table className="min-w-full border-2 tabel-auto text-xs sm:text-base lg:text-xl">
             <thead className="bg-gray-200">  
              <tr>
-            
                 {headings.map((heading, index) => (
                   <th key={index} className="py-3 text-md">
                     {heading}
@@ -75,7 +75,7 @@ const headings = [
                 ))}
               </tr>
             </thead>
-              <tbody className="bg-white divide-y divide-gray-200 ">
+              <tbody className="bg-white divide-y divide-gray-200">
               {data.map((item, index) => (
                 <tr key={index} className="text-center">
                   <td>{item.client_id}</td>
@@ -89,7 +89,7 @@ const headings = [
                       alt={`Image ${index}`}
                       width={0}
                       height={0}
-                      className="min-w-full mt-2"
+                      className="min-w-full mt-2 overflow-hidden"
                       onClick={() => openImageModal(item.image, item._id)}
                     />
                   </td>
@@ -111,7 +111,7 @@ const headings = [
                   <button
                     type="button"
                     onClick={() => downloadImage(selectedImage, client_id)}
-                    className="inline-flex items-center outline outline-blue-500 hover:bg-blue-600 hover:border-transparent text-white px-4 py-2 rounded"
+                    className="inline-flex items-center outline-1 bg-slate-700 hover:bg-blue-600  text-white px-4 py-2 rounded"
                   >
                     <svg
                       class="fill-current w-4 h-4 mr-2"
@@ -125,7 +125,7 @@ const headings = [
                 </div>
                 <button
                   onClick={closeImageModal}
-                  className="absolute top-4 right-4 p-2 text-white text-xl rounded bg-green-400 hover:text-green-800 hover:bg-white"
+                  className="absolute top-4 right-4 p-2 text-white text-xl rounded bg-red-400 hover:text-red-400 hover:bg-white"
                 >
                   close
                 </button>
@@ -135,10 +135,10 @@ const headings = [
         </div>
       </section>
      
-      <div className="m-5">
+      {/* <div className="m-5">
        {show?"" :<button className=" bg-blue-500 text-white px-6 py-2 mr-5 rounded" onClick={()=>setshow(true)}>show chart</button>}
         {show && <DynmaicComp data={data}/>}
-      </div>
+      </div> */}
     </>
   );
 }
