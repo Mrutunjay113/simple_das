@@ -4,7 +4,6 @@ const UserContext = createContext();
 
 export function DataContextProvider({ children }) {
     const [userData, setUserData] = useState([]);
-    console.log("user data type conetx", userData);
     return (
         <UserContext.Provider value={{ userData, setUserData }}>
             {children}

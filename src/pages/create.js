@@ -43,7 +43,6 @@ export default function CreatePage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("form data", formData);
     try {
       setLoading(true)
       const response = await axios.post("/api/user", formData, {
@@ -52,7 +51,7 @@ export default function CreatePage() {
         },
       });
       alert('data saved')
-      console.log("User created successfully", response);
+      console.log("User created successfully", respons);
     } catch (error) {
       console.log({ error });
       alert('something went wrong', error)

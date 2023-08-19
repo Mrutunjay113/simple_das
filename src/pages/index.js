@@ -43,9 +43,7 @@ const headings = [
       const response = await axios.get("/api/getdata");
       setData(response?.data);
       const datacontext = response.data
-      setUserData(datacontext)
-
-     
+      setUserData(datacontext) 
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
