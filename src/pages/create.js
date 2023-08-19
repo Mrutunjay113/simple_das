@@ -133,7 +133,7 @@ export default function CreatePage() {
 
               </button>
               <Link href='/'><button
-                type="submit"
+                type="button"
                 className="w-full sm:w-auto bg-[#6469ff]  hover:bg-blue-900 text-white font-bold py-2 px-4 rounded"
               >
                 BACK
